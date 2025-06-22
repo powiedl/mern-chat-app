@@ -52,11 +52,14 @@ export const getMessages = async (req, res) => {
     }).populate('messages');
 
     if (!conversation) {
-      res.status(200).json([]);
+      return res.status(200).json([]);
     }
     const messages = conversation?.messages;
+    if (!messages) {
+      return res.status(200).json([]);
+    }
 
-    res.status(200).json(conversation.messages);
+    res.status(200).json(messages);
 
     // SOCKET.IO FUNCTIoNALITY
   } catch (error) {
